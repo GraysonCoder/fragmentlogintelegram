@@ -3,7 +3,7 @@ import json
 import os
 from datetime import datetime
 
-app = Flask(__name__, static_folder='static', template_folder='static', static_url_path='')
+app = Flask(__name__, static_folder='static')
 
 LOGS_FILE = 'logs.json'
 
@@ -22,11 +22,11 @@ def save_logs(logs):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return send_from_directory('static', 'index.html')
 
-@app.route('/<path:path>')
+@app.route('/static/<path:path>')
 def send_static(path):
-    return send_from_directory('sitelogin', path)
+    return send_from_directory('static', path)
 
 @app.route('/api/save_log', methods=['POST'])
 def save_log_endpoint():
